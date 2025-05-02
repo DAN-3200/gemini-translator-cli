@@ -15,7 +15,7 @@ const (
 
 var infoHelp = css.NewStyle().
 	Foreground(css.Color("#606060")).
-	Render("[Ctrl+x] Clear • [Ctrl+a] Swicth mode " + "• [Ctrl+d] Switch language " + "• [Esc] Exit")
+	Render("[Ctrl+u] Clear • [Ctrl+a] Swicth mode " + "• [Ctrl+t] Switch language " + "• [Esc] Exit")
 
 var box = css.NewStyle().Padding(1)
 

@@ -34,7 +34,7 @@ func (it App) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		switch msg.Type {
 		case tea.KeyCtrlC, tea.KeyEsc:
 			return it, tea.Quit
-		case tea.KeyCtrlD:
+		case tea.KeyCtrlT:
 			it.CtxTranslate.SwitchLang = !it.CtxTranslate.SwitchLang
 		case tea.KeyEnter:
 			if it.SwitchMode {
@@ -46,7 +46,7 @@ func (it App) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 					),
 				)
 			}
-		case tea.KeyCtrlX:
+		case tea.KeyCtrlU:
 			it.TextInput.Reset()
 		case tea.KeyCtrlA:
 			it.SwitchMode = !it.SwitchMode
