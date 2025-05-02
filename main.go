@@ -1,8 +1,8 @@
 // App CLI de tradução de palavras
 package main
 
-import "app/layout"
+import front "app/visual"
 
 func main() {
-	layout.Run()
+	front.Run()
 }

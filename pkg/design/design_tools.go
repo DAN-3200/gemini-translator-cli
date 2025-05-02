@@ -6,7 +6,6 @@ import (
 	"strings"
 )
 
-// DynamicLayout
 func Div(elements ...string) string {
 	var n_elements = len(elements)
 	if n_elements == 0 {
@@ -19,7 +18,7 @@ func Div(elements ...string) string {
 	for index, value := range elements {
 		all_elements[index] = value
 
-		layout.WriteString("%s")
+		layout.WriteString("%s") // Inserir o Component direto
 		if index < n_elements-1 {
 			layout.WriteString("\n")
 		}

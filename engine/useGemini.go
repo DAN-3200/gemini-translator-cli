@@ -1,4 +1,4 @@
-package translate
+package engine
 
 import (
 	"app/pkg/utils"
@@ -25,7 +25,7 @@ func InitGemini(Key string) *Gemini.Client {
 	return client
 }
 
-func UseGemini(text string, switchLang bool) string {
+func UseTranslation(text string, switchLang bool) string {
 	langs := utils.Ternary(switchLang, "PT-BR to EN", "EN to PT-BR")
 	command := "Translate from %s: '%s'. Return only the exact translation, no explanation."
 	prompt := Gemini.Text(
@@ -41,4 +41,35 @@ func UseGemini(text string, switchLang bool) string {
 	var translate = fmt.Sprintf("%s", response.Candidates[0].Content.Parts[0])
 
 	return translate
+}
+
+func UseDictionary(word string) string {
+	if len(word) <= 0 {
+		return "[Error]"
+	}
+	command := `
+		Return only the information of the word ´%s´ in the following format:
+
+		class:
+		[part of speech]
+
+		meaning:
+		[definition in English, with line breaks every 20 characters]
+
+		translation:
+		[short Portuguese translation, with line breaks every 20 characters]
+	`
+
+	prompt := Gemini.Text(
+		fmt.Sprintf(command, word),
+	)
+
+	response, err := model.GenerateContent(ctx, prompt)
+	if err != nil {
+		return "Erro na requisição de conteudo"
+
+	}
+	var description = fmt.Sprintf("%s", response.Candidates[0].Content.Parts[0])
+
+	return description
 }
