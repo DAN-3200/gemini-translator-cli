@@ -1,32 +1,32 @@
-package layout
+package engine
 
 import (
-	c "app/ctx_share"
+	t "app/internal/types"
 
 	"github.com/charmbracelet/bubbles/textinput"
 )
 
 // Contexto Geral da aplicação responsável variáveis persistentes durante a renderização
 type App struct {
-	c.CtxMain
+	t.CtxMain
 }
 
-func SetApp() App {
+func SetApp() *App {
 	var ti = textinput.New()
 	ti.Placeholder = "..."
 	ti.Focus()
 	ti.CharLimit = 100
 	ti.Width = 100
 
-	return App{
-		CtxMain: c.CtxMain{
+	return &App{
+		CtxMain: t.CtxMain{
 			TextInput:  ti,
 			SwitchMode: false,
-			CtxTranslate: c.CtxTranslate{
+			CtxTranslate: t.CtxTranslate{
 				Text:       "...",
 				SwitchLang: false,
 			},
-			CtxDict: c.CtxDict{
+			CtxDict: t.CtxDict{
 				Response: "...",
 			},
 		},

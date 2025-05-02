@@ -1,4 +1,4 @@
-package ctx_share
+package types
 
 import "github.com/charmbracelet/bubbles/textinput"
 

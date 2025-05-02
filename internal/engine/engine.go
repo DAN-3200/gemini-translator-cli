@@ -1,20 +1,32 @@
-package layout
+package engine
 
 import (
-	"app/engine"
+	"app/internal/agentAI"
+	comp "app/internal/components"
 	"app/pkg/utils"
+	"fmt"
+
 	"strings"
 
-	"github.com/charmbracelet/bubbles/textinput"
 	tea "github.com/charmbracelet/bubbletea"
+
+	"github.com/charmbracelet/bubbles/textinput"
 )
 
-// LoroApp.Init() tea.Cmd: Comandos Inicias da aplicação
+func Run() {
+	var program = tea.NewProgram(SetApp())
+	var _, err = program.Run()
+	if err != nil {
+		fmt.Printf("Erro: %v/n", err)
+	}
+}
+
+// -- App Methods
+
 func (it App) Init() tea.Cmd {
 	return textinput.Blink
 }
 
-// LoroApp.Update() tea.Model, tea.Cmd: atualiza o model com base na mensagem recebida
 func (it App) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 	var cmd tea.Cmd
 	switch msg := msg.(type) {
@@ -26,10 +38,10 @@ func (it App) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 			it.CtxTranslate.SwitchLang = !it.CtxTranslate.SwitchLang
 		case tea.KeyEnter:
 			if it.SwitchMode {
-				it.CtxTranslate.Text = engine.UseTranslation(it.TextInput.Value(), it.CtxTranslate.SwitchLang)
+				it.CtxTranslate.Text = agentAI.UseTranslation(it.TextInput.Value(), it.CtxTranslate.SwitchLang)
 			} else {
 				it.CtxDict.Response = strings.TrimSpace(
-					engine.UseDictionary(
+					agentAI.UseDictionary(
 						strings.TrimSpace(it.TextInput.Value()),
 					),
 				)
@@ -49,7 +61,6 @@ func (it App) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 	return it, cmd
 }
 
-// LoroApp.View() string: renderiza a interface a partir do dados model
 func (it App) View() string {
-	return utils.Ternary(it.SwitchMode, it.TranslatePage(), it.DictPage())
+	return utils.Ternary(it.SwitchMode, comp.TranslatePage(it.CtxMain), comp.DictPage(it.CtxMain))
 }

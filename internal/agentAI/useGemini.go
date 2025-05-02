@@ -1,4 +1,4 @@
-package engine
+package agentAI
 
 import (
 	"app/pkg/utils"
@@ -6,10 +6,11 @@ import (
 	"fmt"
 
 	Gemini "github.com/google/generative-ai-go/genai"
+
 	"google.golang.org/api/option"
 )
 
-const geminiKEY = "AIzaSyCbtBOlwU1yI7BYxkanm2SPjYykkgh4xnQ"
+const geminiKEY string = "AIzaSyCbtBOlwU1yI7BYxkanm2SPjYykkgh4xnQ"
 
 var (
 	ctx    = context.Background()
@@ -47,17 +48,19 @@ func UseDictionary(word string) string {
 	if len(word) <= 0 {
 		return "[Error]"
 	}
-	command := `
-		Return only the information of the word ´%s´ in the following format:
 
+	command := `
+		Translate the word ´%s´ exactly and directly. Do not ask for context or clarification.
+
+		Format:
 		class:
 		[part of speech]
 
 		meaning:
-		[definition in English, with line breaks every 20 characters]
+		[concise English definition, line breaks every ~20 characters]
 
 		translation:
-		[short Portuguese translation, with line breaks every 20 characters]
+		[short Portuguese translation, line breaks every ~20 characters]
 	`
 
 	prompt := Gemini.Text(

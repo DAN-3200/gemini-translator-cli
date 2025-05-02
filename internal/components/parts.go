@@ -1,4 +1,4 @@
-package layout
+package components
 
 import (
 	css "github.com/charmbracelet/lipgloss"
@@ -12,6 +12,7 @@ const (
 	white     = "#FAF9F6" // #FAF9F6
 	steelBlue = "#4682B4" // #4682B4
 )
+
 var infoHelp = css.NewStyle().
 	Foreground(css.Color("#606060")).
 	Render("[Ctrl+x] Clear • [Ctrl+a] Swicth mode " + "• [Ctrl+d] Switch language " + "• [Esc] Exit")

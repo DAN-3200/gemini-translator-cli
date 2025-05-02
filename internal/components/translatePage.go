@@ -1,13 +1,14 @@
-package layout
+package components
 
 import (
 	. "app/pkg/design"
 	u "app/pkg/utils"
+	"app/internal/types"
 
 	css "github.com/charmbracelet/lipgloss"
 )
 
-func (it App) TranslatePage() string {
+func TranslatePage(it types.CtxMain) string {
 	var langSwap = func() string {
 		var styleFont = func(text string) string {
 			return css.NewStyle().

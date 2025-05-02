@@ -1,13 +1,14 @@
-package layout
+package components
 
 import (
+	"app/internal/types"
 	. "app/pkg/design"
 	"app/pkg/utils"
 
 	css "github.com/charmbracelet/lipgloss"
 )
 
-func (it App) DictPage() string {
+func DictPage(it types.CtxMain) string {
 	var dictNotification = css.NewStyle().
 		Bold(true).
 		Padding(0, 2).
@@ -42,5 +43,4 @@ func (it App) DictPage() string {
 			infoHelp,
 		),
 	)
-
 }
