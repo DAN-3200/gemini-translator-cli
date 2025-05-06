@@ -4,7 +4,6 @@ import (
 	"app/internal/agentAI"
 	comp "app/internal/components"
 	"app/pkg/utils"
-	"fmt"
 
 	"strings"
 
@@ -12,16 +11,6 @@ import (
 
 	"github.com/charmbracelet/bubbles/textinput"
 )
-
-func Run() {
-	var program = tea.NewProgram(SetApp())
-	var _, err = program.Run()
-	if err != nil {
-		fmt.Printf("Erro: %v/n", err)
-	}
-}
-
-// -- App Methods
 
 func (it App) Init() tea.Cmd {
 	return textinput.Blink
@@ -40,10 +29,8 @@ func (it App) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 			if it.SwitchMode {
 				it.CtxTranslate.Text = agentAI.UseTranslation(it.TextInput.Value(), it.CtxTranslate.SwitchLang)
 			} else {
-				it.CtxDict.Response = strings.TrimSpace(
-					agentAI.UseDictionary(
-						strings.TrimSpace(it.TextInput.Value()),
-					),
+				it.CtxDict.Dictionary = agentAI.UseDictionary(
+					strings.TrimSpace(it.TextInput.Value()),
 				)
 			}
 		case tea.KeyCtrlU:

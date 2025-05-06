@@ -1,44 +1,37 @@
 package components
 
 import (
-	"app/internal/types"
+	"app/internal/models"
 	. "app/pkg/design"
-	"app/pkg/utils"
 
 	css "github.com/charmbracelet/lipgloss"
 )
 
-func DictPage(it types.CtxMain) string {
-	var dictNotification = css.NewStyle().
+func DictPage(it models.CtxMain) string {
+	var dictFlag = css.NewStyle().
 		Bold(true).
 		Padding(0, 2).
 		Background(css.Color("#28282b")).
 		Render("Dictionary")
 
-	var textInput = func() string {
-		it.TextInput.Prompt = prefixStyle("Word: ")
-		it.TextInput.TextStyle = css.NewStyle().
-			Foreground(css.Color(yellow))
+	var txtInput = func() string {
+		it.TextInput.Prompt = prefixStyle("Search: ")
+		it.TextInput.TextStyle = css.NewStyle().Foreground(css.Color(yellow))
 
 		return it.TextInput.View()
-	}
-	var _ = func(element string) string {
-		ft := css.NewStyle().
-			Padding(1, 2).
-			AlignVertical(css.Position(css.Center)).
-			Foreground(css.Color(blue)).
-			Background(css.Color("#28282b"))
-
-		return ft.Render(element)
 	}
 
 	return box.Render(
 		Div(
-			titleApp+dictNotification,
+			titleApp+dictFlag,
 			"",
-			textInput(),
+			txtInput(),
 			"",
-			utils.Ternary(len(it.CtxDict.Response) > 0, fontColor(it.CtxDict.Response, blue), ""),
+			fontColor(it.Dictionary.Word, white),
+			fontColor(it.Dictionary.PartOfSpeech, yellow),
+			fontColor(it.Dictionary.Definition, blue),
+			fontColor(it.Dictionary.Example, green),
+			fontColor(it.Dictionary.Synonyms, purple),
 			"",
 			infoHelp,
 		),

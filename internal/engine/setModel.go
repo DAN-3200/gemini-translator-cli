@@ -1,14 +1,14 @@
 package engine
 
 import (
-	t "app/internal/types"
+	m "app/internal/models"
 
 	"github.com/charmbracelet/bubbles/textinput"
 )
 
 // Contexto Geral da aplicação responsável variáveis persistentes durante a renderização
 type App struct {
-	t.CtxMain
+	m.CtxMain
 }
 
 func SetApp() *App {
@@ -18,16 +18,23 @@ func SetApp() *App {
 	ti.CharLimit = 100
 	ti.Width = 100
 
+
 	return &App{
-		CtxMain: t.CtxMain{
+		CtxMain: m.CtxMain{
 			TextInput:  ti,
 			SwitchMode: false,
-			CtxTranslate: t.CtxTranslate{
+			CtxTranslate: m.CtxTranslate{
 				Text:       "...",
 				SwitchLang: false,
 			},
-			CtxDict: t.CtxDict{
-				Response: "...",
+			CtxDict: m.CtxDict{
+				Dictionary: m.DictionaryEntry{
+					Word: "Word",
+					PartOfSpeech: "Part of speech",
+					Definition: "Definition",
+					Example: "Example",
+					Synonyms: "Synonyms",
+				},
 			},
 		},
 	}

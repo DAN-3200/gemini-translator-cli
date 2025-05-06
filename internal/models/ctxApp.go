@@ -1,4 +1,4 @@
-package types
+package models
 
 import "github.com/charmbracelet/bubbles/textinput"
 
@@ -16,5 +16,5 @@ type CtxTranslate struct {
 }
 
 type CtxDict struct {
-	Response string
+	Dictionary DictionaryEntry
 }

@@ -11,6 +11,7 @@ const (
 	yellow    = "#FADA5E" // #FADA5E
 	white     = "#FAF9F6" // #FAF9F6
 	steelBlue = "#4682B4" // #4682B4
+	purple    = "#BCA9F5" // #BCA9F5
 )
 
 var infoHelp = css.NewStyle().
