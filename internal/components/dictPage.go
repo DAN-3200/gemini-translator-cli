@@ -2,7 +2,7 @@ package components
 
 import (
 	"app/internal/models"
-	. "app/pkg/design"
+	"strings"
 
 	css "github.com/charmbracelet/lipgloss"
 )
@@ -14,26 +14,28 @@ func DictPage(it models.CtxMain) string {
 		Background(css.Color("#28282b")).
 		Render("Dictionary")
 
-	var txtInput = func() string {
+	{ // TextInput
 		it.TextInput.Prompt = prefixStyle("Search: ")
 		it.TextInput.TextStyle = css.NewStyle().Foreground(css.Color(yellow))
-
-		return it.TextInput.View()
 	}
 
+	content := css.JoinVertical(css.Left,
+		titleApp()+dictFlag,
+		"",
+		it.TextInput.View(),
+		"",
+		fontColor(it.Dictionary.Word, white),
+		fontColor(it.Dictionary.PartOfSpeech, yellow),
+		fontColor(it.Dictionary.Definition, blue),
+		fontColor(it.Dictionary.Example, green),
+		fontColor(it.Dictionary.Synonyms, purple),
+		"",
+	)
+
+	rows := strings.Count(content, "\n") + 2
+
 	return box.Render(
-		Div(
-			titleApp+dictFlag,
-			"",
-			txtInput(),
-			"",
-			fontColor(it.Dictionary.Word, white),
-			fontColor(it.Dictionary.PartOfSpeech, yellow),
-			fontColor(it.Dictionary.Definition, blue),
-			fontColor(it.Dictionary.Example, green),
-			fontColor(it.Dictionary.Synonyms, purple),
-			"",
-			infoHelp,
-		),
+		content,
+		css.Place(it.Size.Width, it.Size.Height-rows, css.Left, css.Bottom, infoHelp),
 	)
 }

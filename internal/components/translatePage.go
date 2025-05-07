@@ -1,9 +1,9 @@
 package components
 
 import (
-	. "app/pkg/design"
-	u "app/pkg/utils"
 	"app/internal/models"
+	u "app/pkg/utils"
+	"strings"
 
 	css "github.com/charmbracelet/lipgloss"
 )
@@ -21,9 +21,7 @@ func TranslatePage(it models.CtxMain) string {
 			Background(css.Color("#28282b"))
 
 		return styleBox.Render(
-			Div(
-				u.Ternary(it.CtxTranslate.SwitchLang, styleFont("PT > EN"), styleFont("EN > PT")),
-			),
+			u.Ternary(it.CtxTranslate.SwitchLang, styleFont("PT > EN"), styleFont("EN > PT")),
 		)
 	}
 
@@ -32,22 +30,23 @@ func TranslatePage(it models.CtxMain) string {
 		Height(2).
 		Render(it.CtxTranslate.Text)
 
-	var textInput = func() string {
+	{ // TextInput
 		it.TextInput.Prompt = prefixStyle("From ")
 		it.TextInput.TextStyle = css.NewStyle().
 			Foreground(css.Color(yellow))
-
-		return it.TextInput.View()
 	}
+	content := css.JoinVertical(css.Left,
+		titleApp()+langSwap(),
+		"",
+		it.TextInput.View(),
+		"",
+		prefixStyle("To ")+textTranslate,
+	)
+
+	rows := strings.Count(content, "\n") + 2
 
 	return box.Render(
-		Div(
-			titleApp+langSwap(),
-			"",
-			textInput(),
-			"",
-			prefixStyle("To ")+textTranslate,
-			infoHelp,
-		),
+		content,
+		css.Place(it.Size.Width, it.Size.Height-rows, css.Left, css.Bottom, infoHelp),
 	)
 }

@@ -26,12 +26,13 @@ var prefixStyle = func(text string) string {
 		Render(text)
 }
 
-var titleApp = css.NewStyle().
-	Bold(true).
-	Padding(0, 2).
-	Foreground(css.Color(white)).
-	Background(css.Color(steelBlue)).
-	Render("LoroApp")
+var titleApp = func() string {
+	return css.NewStyle().
+		Padding(0, 2).
+		Bold(true).
+		Background(css.Color(steelBlue)).Foreground(css.Color(white)).
+		Render("Loro App")
+}
 
 var fontColor = func(text string, color string) string {
 	return css.NewStyle().

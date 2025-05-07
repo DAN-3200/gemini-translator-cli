@@ -3,6 +3,9 @@ package models
 import "github.com/charmbracelet/bubbles/textinput"
 
 type CtxMain struct {
+	Size struct {
+		Height, Width int
+	}
 	Err        error
 	SwitchMode bool
 	TextInput  textinput.Model

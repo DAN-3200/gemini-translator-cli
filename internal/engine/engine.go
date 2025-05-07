@@ -3,7 +3,7 @@ package engine
 import (
 	"app/internal/agentAI"
 	comp "app/internal/components"
-	"app/pkg/utils"
+	u "app/pkg/utils"
 
 	"strings"
 
@@ -19,12 +19,18 @@ func (it App) Init() tea.Cmd {
 func (it App) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 	var cmd tea.Cmd
 	switch msg := msg.(type) {
+	case tea.WindowSizeMsg:
+		it.Size.Height = msg.Height
+		it.Size.Width = msg.Width
+
 	case tea.KeyMsg:
 		switch msg.Type {
 		case tea.KeyCtrlC, tea.KeyEsc:
 			return it, tea.Quit
 		case tea.KeyCtrlT:
-			it.CtxTranslate.SwitchLang = !it.CtxTranslate.SwitchLang
+			if it.SwitchMode {
+				it.CtxTranslate.SwitchLang = !it.CtxTranslate.SwitchLang
+			}
 		case tea.KeyEnter:
 			if it.SwitchMode {
 				it.CtxTranslate.Text = agentAI.UseTranslation(it.TextInput.Value(), it.CtxTranslate.SwitchLang)
@@ -49,5 +55,7 @@ func (it App) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 }
 
 func (it App) View() string {
-	return utils.Ternary(it.SwitchMode, comp.TranslatePage(it.CtxMain), comp.DictPage(it.CtxMain))
+	return u.Ternary(
+		it.SwitchMode, comp.TranslatePage(it.CtxMain), comp.DictPage(it.CtxMain),
+	)
 }

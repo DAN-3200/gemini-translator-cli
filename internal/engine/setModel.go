@@ -16,11 +16,14 @@ func SetApp() *App {
 	ti.Placeholder = "..."
 	ti.Focus()
 	ti.CharLimit = 100
-	ti.Width = 100
-
+	ti.Width = 100	
 
 	return &App{
 		CtxMain: m.CtxMain{
+			Size: struct{ Height, Width int }{
+				Height: 0,
+				Width:  0,
+			},
 			TextInput:  ti,
 			SwitchMode: false,
 			CtxTranslate: m.CtxTranslate{
@@ -29,11 +32,11 @@ func SetApp() *App {
 			},
 			CtxDict: m.CtxDict{
 				Dictionary: m.DictionaryEntry{
-					Word: "Word",
+					Word:         "Word",
 					PartOfSpeech: "Part of speech",
-					Definition: "Definition",
-					Example: "Example",
-					Synonyms: "Synonyms",
+					Definition:   "Definition",
+					Example:      "Example",
+					Synonyms:     "Synonyms",
 				},
 			},
 		},
