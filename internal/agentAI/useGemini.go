@@ -30,8 +30,11 @@ func InitGemini(Key string) *Gemini.Client {
 }
 
 func UseTranslation(text string, switchLang bool) string {
+	if text == "" {
+		return "..."
+	}
 	langs := utils.Ternary(switchLang, "PT-BR to EN", "EN to PT-BR")
-	command := "Translate from %s: '%s'. Return only the exact translation, no explanation."
+	command := `Translate from %s: "%s". Return only the exact translation, no explanation.`
 	prompt := Gemini.Text(
 		fmt.Sprintf(command, langs, text),
 	)
@@ -39,7 +42,6 @@ func UseTranslation(text string, switchLang bool) string {
 	response, err := model.GenerateContent(ctx, prompt)
 	if err != nil {
 		return "Erro na requisição de conteudo"
-
 	}
 
 	var translate = fmt.Sprintf("%s", response.Candidates[0].Content.Parts[0])
@@ -55,25 +57,28 @@ func UseDictionary(word string) models.DictionaryEntry {
 			Definition:   "Definition",
 			Example:      "Example",
 			Synonyms:     "Synonyms",
+			Collocations: "Collocations",
 		}
 	}
 
 	command := `
-		Task: Generate a single JSON object for the word "%s".
+		Task: Return a strict JSON object for the word "%s".
 
-		Requirements:
-		- Do not include code blocks, backticks, or explanations.
-		- Return only the JSON object.
-		- Generate the phrase without a period at the end.
+		Rules:
+		- Output must be only the JSON object. No text, no comments, no formatting.
+		- The JSON must be valid: use double quotes and no trailing commas.
+		- Use simple, learner-friendly English in all fields.
+		- The example sentence must be natural, common, and end without a period.
+	 	- If the word is a verb, format partOfSpeech as: "verb - [tense]".
 
-		Format:
+		Schema:
 		{
 			"word": string,
-			"partOfSpeech": string, // If it's a verb, specify the verb tense. modelo: verb - [verb tense]
-			"definition": string,
+			"partOfSpeech": string,
+			"definition": string, 
 			"example": string,
-			"translation": string, // Translation in Portuguese (pt-br)
-			"synonyms": string // separated by commas
+			"synonyms": string // comma-separated
+			"collocations": string, // comma-separated; frequent word combinations 
 		}
 	`
 	prompt := Gemini.Text(
@@ -86,6 +91,7 @@ func UseDictionary(word string) models.DictionaryEntry {
 	}
 
 	var dataJSON = fmt.Sprintf("%s", response.Candidates[0].Content.Parts[0])
+	// [ ] Otimizar
 	var cleanJSON = strings.ReplaceAll(dataJSON, "`", "")
 	cleanJSON = strings.ReplaceAll(cleanJSON, "json", "")
 

@@ -1,6 +1,7 @@
 package components
 
 import (
+	"app/internal/components/colors"
 	"app/internal/models"
 	u "app/pkg/utils"
 	"strings"
@@ -26,14 +27,14 @@ func TranslatePage(it models.CtxMain) string {
 	}
 
 	var textTranslate = css.NewStyle().
-		Foreground(css.Color(blue)).
+		Foreground(css.Color(colors.Blue)).
 		Height(2).
 		Render(it.CtxTranslate.Text)
 
 	{ // TextInput
 		it.TextInput.Prompt = prefixStyle("From ")
 		it.TextInput.TextStyle = css.NewStyle().
-			Foreground(css.Color(yellow))
+			Foreground(css.Color(colors.White))
 	}
 	content := css.JoinVertical(css.Left,
 		titleApp()+langSwap(),

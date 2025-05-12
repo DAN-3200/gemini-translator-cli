@@ -33,7 +33,9 @@ func (it App) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 			}
 		case tea.KeyEnter:
 			if it.SwitchMode {
-				it.CtxTranslate.Text = agentAI.UseTranslation(it.TextInput.Value(), it.CtxTranslate.SwitchLang)
+				it.CtxTranslate.Text = agentAI.UseTranslation(
+					strings.TrimSpace(it.TextInput.Value()), it.CtxTranslate.SwitchLang,
+				)
 			} else {
 				it.CtxDict.Dictionary = agentAI.UseDictionary(
 					strings.TrimSpace(it.TextInput.Value()),

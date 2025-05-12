@@ -16,7 +16,7 @@ func SetApp() *App {
 	ti.Placeholder = "..."
 	ti.Focus()
 	ti.CharLimit = 100
-	ti.Width = 100	
+	ti.Width = 100
 
 	return &App{
 		CtxMain: m.CtxMain{
@@ -37,6 +37,7 @@ func SetApp() *App {
 					Definition:   "Definition",
 					Example:      "Example",
 					Synonyms:     "Synonyms",
+					Collocations: "Collocations",
 				},
 			},
 		},

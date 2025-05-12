@@ -6,4 +6,5 @@ type DictionaryEntry struct {
 	Definition   string `json:"definition"`
 	Example      string `json:"example"`
 	Synonyms     string `json:"synonyms"`
+	Collocations string `json:"collocations"`
 }

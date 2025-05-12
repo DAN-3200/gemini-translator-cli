@@ -1,18 +1,13 @@
 package components
 
 import (
+	"app/internal/components/colors"
+
 	css "github.com/charmbracelet/lipgloss"
 )
 
 // -- Styles and Components -----------------------------------------------------
-const (
-	blue      = "#87CEEB" // #87CEEB
-	green     = "#50C878" // #50C878
-	yellow    = "#FADA5E" // #FADA5E
-	white     = "#FAF9F6" // #FAF9F6
-	steelBlue = "#4682B4" // #4682B4
-	purple    = "#BCA9F5" // #BCA9F5
-)
+
 
 var infoHelp = css.NewStyle().
 	Foreground(css.Color("#606060")).
@@ -30,7 +25,7 @@ var titleApp = func() string {
 	return css.NewStyle().
 		Padding(0, 2).
 		Bold(true).
-		Background(css.Color(steelBlue)).Foreground(css.Color(white)).
+		Background(css.Color(colors.SteelBlue500)).Foreground(css.Color(colors.White)).
 		Render("Loro App")
 }
 

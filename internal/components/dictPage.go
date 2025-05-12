@@ -1,6 +1,7 @@
 package components
 
 import (
+	"app/internal/components/colors"
 	"app/internal/models"
 	"strings"
 
@@ -16,7 +17,7 @@ func DictPage(it models.CtxMain) string {
 
 	{ // TextInput
 		it.TextInput.Prompt = prefixStyle("Search: ")
-		it.TextInput.TextStyle = css.NewStyle().Foreground(css.Color(yellow))
+		it.TextInput.TextStyle = css.NewStyle().Foreground(css.Color(colors.White))
 	}
 
 	content := css.JoinVertical(css.Left,
@@ -24,11 +25,12 @@ func DictPage(it models.CtxMain) string {
 		"",
 		it.TextInput.View(),
 		"",
-		fontColor(it.Dictionary.Word, white),
-		fontColor(it.Dictionary.PartOfSpeech, yellow),
-		fontColor(it.Dictionary.Definition, blue),
-		fontColor(it.Dictionary.Example, green),
-		fontColor(it.Dictionary.Synonyms, purple),
+		fontColor(it.Dictionary.Word, colors.SteelBlue200),
+		fontColor(it.Dictionary.PartOfSpeech, colors.SteelBlue400),
+		fontColor(it.Dictionary.Definition, colors.Yellow),
+		fontColor(`"`+it.Dictionary.Example+`"`, colors.SteelBlue200),
+		fontColor(it.Dictionary.Collocations, colors.SteelBlue300),
+		fontColor(it.Dictionary.Synonyms, colors.SteelBlue500),
 		"",
 	)
 
