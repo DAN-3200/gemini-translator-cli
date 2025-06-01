@@ -8,7 +8,6 @@ import (
 
 // -- Styles and Components -----------------------------------------------------
 
-
 var infoHelp = css.NewStyle().
 	Foreground(css.Color("#606060")).
 	Render("[Ctrl+u] Clear • [Ctrl+a] Swicth mode " + "• [Ctrl+t] Switch language " + "• [Esc] Exit")

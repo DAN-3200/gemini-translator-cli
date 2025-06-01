@@ -6,6 +6,7 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"os"
 	"strings"
 
 	Gemini "github.com/google/generative-ai-go/genai"
@@ -13,20 +14,14 @@ import (
 	"google.golang.org/api/option"
 )
 
-const geminiKEY string = "AIzaSyCbtBOlwU1yI7BYxkanm2SPjYykkgh4xnQ"
-
 var (
 	ctx    = context.Background()
-	client = InitGemini(geminiKEY)
-	model  = client.GenerativeModel("gemini-2.0-flash-lite")
+	model *Gemini.GenerativeModel
 )
 
-func InitGemini(Key string) *Gemini.Client {
-	client, err := Gemini.NewClient(ctx, option.WithAPIKey(geminiKEY))
-	if err != nil {
-		return nil
-	}
-	return client
+func InitGemini() {
+	client, _ := Gemini.NewClient(ctx, option.WithAPIKey(os.Getenv("KEY")))
+	model = client.GenerativeModel("gemini-2.0-flash-lite")
 }
 
 func UseTranslation(text string, switchLang bool) string {
