@@ -39,6 +39,35 @@ type DictionaryEntry struct {
 }
 ```
 
+## Prompts for Gemini
+
+prompt for `translation`
+```txt
+Translate from %s: "%s". Return only the exact translation, no explanation.
+```
+
+prompt for `dictionary`
+```txt
+Task: Return a strict JSON object for the word "%s".
+
+  Rules:
+  - Output must be only the JSON object. No text, no comments, no formatting.
+  - The JSON must be valid: use double quotes and no trailing commas.
+  - Use simple, learner-friendly English in all fields.
+  - The example sentence must be natural, common, and end without a period.
+  - If the word is a verb, format partOfSpeech as: "verb - [tense]".
+
+  Schema:
+  {
+    "word": string,
+    "partOfSpeech": string,
+    "definition": string, 
+    "example": string,
+    "synonyms": string // comma-separated
+    "collocations": string, // comma-separated; frequent word combinations 
+  }
+```
+
 ## Links 
 
 - Link Go: [https://pkg.go.dev/golang.org](https://pkg.go.dev/golang.org)
