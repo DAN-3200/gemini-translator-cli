@@ -13,6 +13,19 @@ git clone https://github.com/DAN-3200/gemini-translator-cli.git
 cd gemini-translator-cli
 ```
 
+##### `.env` Configuration (Required)
+
+Create a `.env` file in the root directory of the project with your **Gemini API key**:
+
+```env
+GEMINI_API_KEY=your-gemini-api-key-here
+```
+
+**Important:**
+
+* Replace `your-gemini-api-key-here` with your actual Gemini API key from [Google AI Studio](https://makersuite.google.com/app/apikey).
+* The application will fail to run if the key is missing or incorrect.
+
 Run directly (for development):
 
 ```bash
