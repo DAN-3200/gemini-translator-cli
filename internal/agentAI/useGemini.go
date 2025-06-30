@@ -20,7 +20,7 @@ var (
 )
 
 func InitGemini() {
-	client, _ := Gemini.NewClient(ctx, option.WithAPIKey(os.Getenv("KEY")))
+	client, _ := Gemini.NewClient(ctx, option.WithAPIKey(os.Getenv("GEMINI_API_KEY")))
 	model = client.GenerativeModel("gemini-2.0-flash-lite")
 }
 
