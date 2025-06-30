@@ -1,10 +1,10 @@
-# Gemini Translator CLI
+# Gemini Translator Golang CLI
 
 ![image](https://github.com/user-attachments/assets/76b35e1d-3a01-466c-bf11-326f3fd9ef5c)
 
 ## Description
 
-A command-line translation tool built in Go using the Bubble Tea TUI library and integrated with the Gemini API. This app provides accurate and context-aware sentence `translation` and a `dictionary` feature for English words, including part of speech, definition, example, synonyms, and collocations. Developed as a practical project to learn and master the Go programming language.
+A command-line translation tool built in `Golang` using the Bubble Tea TUI library and integrated with the Gemini API. This app provides accurate and context-aware sentence `translation` and a `dictionary` feature for English words, including part of speech, definition, example, synonyms, and collocations. Developed as a practical project to learn and master the Go programming language.
 
 ## Installation & Usage
 
