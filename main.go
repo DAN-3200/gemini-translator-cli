@@ -3,8 +3,7 @@ package main
 
 import (
 	front "app/internal"
-
-	"log"
+	"fmt"
 
 	"github.com/joho/godotenv"
 )
@@ -14,7 +13,7 @@ func init() {
 	// carregar variveis de ambiente
 	err := godotenv.Load()
 	if err != nil {
-		log.Fatalf("Erro ao carregar as variaveis de ambiente: %v", err)
+		fmt.Printf("Erro ao carregar as variaveis de ambiente: %v", err)
 	}
 }
 
